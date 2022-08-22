@@ -1,4 +1,8 @@
-main {
+body{
+  background-color: #EEF9BF;
+}
+
+.conteiner{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -9,6 +13,8 @@ main {
     margin: 0;
     
   }
+
+  
 
   div{
     box-sizing: border-box;
@@ -35,6 +41,7 @@ main {
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
     margin-bottom: 15px;
+    
   }
   
   .grid {
