@@ -1,0 +1,102 @@
+main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: #EEF9BF;
+    align-items: center;
+    justify-content: center;  
+    margin: 0;
+    
+  }
+
+  div{
+    box-sizing: border-box;
+}
+
+  .titulo{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 56px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    color: #75B79E;
+    margin-bottom: 5px;
+    margin-top: 40px;
+  }
+
+  .timer{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+  }
+
+  .titulo2{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    margin-bottom: 15px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    width: 100%;
+     max-width: 800px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 645px) {
+    .grid{
+        width: 100vw;
+    }
+    .titulo{
+        font-size: 36px;
+    }
+}
+  
+  .card {
+   width: 117px;
+   height: 146px;
+   border-radius: 5px;
+  position: relative;
+  transition: all 400ms ease;
+  transform-style: preserve-3d;
+  background-color: #ccc;
+  }
+  
+  .face {
+    width: 117px;
+    height: 146px;
+    position: absolute;
+    transition: all 400ms ease;
+  }
+  
+  .front {
+    background-color: #A7E9AF;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+    transition: all 400ms ease;
+  }
+  
+  .back {
+    background-image: url('../images/Loro.png');
+    backface-visibility: hidden;
+    background-color: #99CEA8;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .virada {
+    transform: rotateY(180deg);
+  }
+  
+  .acertou {
+    filter: saturate(0);
+    opacity: 0.5;
+  }
+  
