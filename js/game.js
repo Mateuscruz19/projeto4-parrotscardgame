@@ -1,156 +1,137 @@
-
-
-
-boasvindas()
-// Numero escolhido pelo usuario	
-let = numero;
-jogadas = 0;
-
-// função escolher quantidade cartas
-function boasvindas() {
-numero = parseInt(prompt('Bem vindo ao Parrot Card Game,digite um numero par entre 4 e 14.'));
-  if(numero !== 4 && numero !== 6 && numero !== 8 && numero !== 10 && numero !== 12 && numero !== 14){
-  alert('Numero invalido, tente novamente,número par entre 4 e 14.')
-  numero = 0;
-  boasvindas();4
-} else(numero === 4 && numero === 6 && numero === 8 && numero === 10 && numero === 12 && numero === 14)
-}
- 
-
-// CREDITOS AONDE ENCONTREI A FUNÇÃO DE DIMINUIR O VOLUME: https://stackoverflow.com/questions/20390421/lower-background-music-volume-when-autoplay-html
-function setHalfVolume() {
-  var myAudio = document.getElementById("audio1");  
-  myAudio.volume = 0.1; //Changed this to 0.5 or 50% volume since the function is called Set Half Volume ;)
-}
-// 
-const grid = document.querySelector('.grid');
-const timer = document.querySelector('.timer');
+let Cartas1;
 
 
 //ARRAY DOS PASSAROS
 const papagaios = [
-  'papagaios1',
-   'papagaios2',
-    'papagaios3',
-     'papagaios4',
-      'papagaios5',   
-       'papagaios6',      
-        'papagaios7',
-      ];
+    'papagaios1',
+     'papagaios2',
+      'papagaios3',
+       'papagaios4',
+        'papagaios5',   
+         'papagaios6',      
+          'papagaios7',
+        ];
 
-      
+        let leque = [];
+        let PrimeiraCarta;
+        let SegundaCarta;
+        let tentativas = 0;
+        let acertou = 0;
+        let temporizador = 0;
+        
+const validacaojogo = () => {
+     if(isNaN(Cartas1) || Cartas1 < 4 || Cartas1 > 14 || (Cartas1 % 2 !== 0)){
+            return true;
+        }
+        return false;
+    }   
 
-const createElement = (tag, className) => {
-  const element = document.createElement(tag);
-  element.className = className;
-  return element;
+    const limparcartas = () => {
+        PrimeiraCarta = undefined;
+        SegundaCarta = undefined;   
+    }
+
+    const retornarcartas = () => {
+    PrimeiraCarta.classList.remove('clicado');
+    SegundaCarta.classList.remove('clicado');
+
+    limparcartas();
+    }
+
+    const virarCarta = (carta) => {
+
+        if(carta.classList.contains('clicado')){
+            return;
+        }
+
+
+
+        if (PrimeiraCarta === undefined){
+            PrimeiraCarta = carta;
+            PrimeiraCarta.classList.add('clicado');
+             }else{
+                if(SegundaCarta === undefined){
+                SegundaCarta = carta;
+                SegundaCarta.classList.add('clicado');
+                    tentativas++;
+                    if(PrimeiraCarta.innerHTML === SegundaCarta.innerHTML){
+                       acertou = acertou + 2;
+                        limparcartas();
+
+                        if(acertou === Cartas1){
+                            alert(`Parabéns.Você ganhou o jogo!
+                            Jogadas:${tentativas} jogadas. 
+                            Tempo: ${temporizador} segundos.`);
+                            const resetar = prompt("Deseja jogar novamente?");
+                            if(resetar === "sim"){
+                                location.reload();
+                                Cartas1 = 0;
+                            }else if(resetar === "não"){
+                                alert("Obrigado por jogar!");
+                            }
+                           
+
+                        }
+
+                    }else{
+                        setTimeout(retornarcartas, 500);
+                    }
+
+             }
+            }
 }
 
-let firstCard = '';
-let secondCard = '';
-
-const checkEndGame = () => {
-  const disabledCards = document.querySelectorAll('.acertou');
-
-  if (disabledCards.length === 14) {
-    clearInterval(this.loop);
-    alert(`Parabéns,seu tempo foi: ${timer.innerHTML} segundos,e você ganhou em ${jogadas} jogadas`);
-    jogar = prompt('Deseja jogar novamente?');
-  }
-  if(jogar === 'sim'){
-    window.location.reload();
-  }else if(jogar === 'não'){
-    alert('Obrigado por jogar,volte sempre!')
-  }
+const sorteador = () => {
+    return Math.random() - 0.5;
 }
 
-const checkCards = () => {
-  const firstCharacter = firstCard.getAttribute('data-character');
-  const secondCharacter = secondCard.getAttribute('data-character');
-  if (firstCharacter === secondCharacter) {
+const loadcartas = () => {
 
-    firstCard.firstChild.classList.add('acertou');
-    secondCard.firstChild.classList.add('acertou');
+    const ul = document.querySelector('.conteiner-cartas');
+    for(let i = 0; i < leque.length; i++){
 
-    firstCard = '';
-    secondCard = '';
-
-    checkEndGame();
-
-  } else {
-    setTimeout(() => {
-
-      firstCard.classList.remove('virada');
-      secondCard.classList.remove('virada');
-
-      firstCard = '';
-      secondCard = '';
-
-    }, 700);
-  }
-
+        ul.innerHTML = ul.innerHTML + `
+        <li  class="carta" onclick="virarCarta(this)">
+        <div class="face frente">
+            <img src="./images/Loro.png">
+        </div>
+        <div class="face costas">
+            <img src="./Cartas/${leque[i]}.gif">
+        </div>
+        </li> `;
+    }
 }
 
-const revealCard = ({ target }) => {
+const tempinho = () => {
+    temporizador++;
 
-  if (target.parentNode.className.includes('virada')) {
-    return;
-  }
-
-  if (firstCard === '') {
-
-    target.parentNode.classList.add('virada');
-    firstCard = target.parentNode;
-
-  } else if (secondCard === '') {
-
-    target.parentNode.classList.add('virada');
-    secondCard = target.parentNode;
-    jogadas = jogadas + 1;
-    checkCards();
-    
-  }  
+    const timer = document.querySelector('.timer');
+    timer.innerHTML = temporizador;
 }
 
-const createCard = (character) => {
+const criarcartas = () => {
+    for(let i = 0; i < (Cartas1/2); i++){
+        let cartinha = papagaios[i];
 
-  const card = createElement('div', 'card');
-  const front = createElement('div', 'face front');
-  const back = createElement('div', 'face back');
+        leque.push(cartinha);
+        leque.push(cartinha);
+    }
 
-  front.style.backgroundImage = `url('../cartas/${character}.gif')`;
+    leque.sort(sorteador);
 
-  card.appendChild(front);
-  card.appendChild(back);
+    loadcartas();
 
-  card.addEventListener('click', revealCard);
-  card.setAttribute('data-character', character)
-
-  return card;
+    setInterval(tempinho, 1000)
 }
 
-const loadGame = () => {
-  const duplicado = [ ...papagaios, ...papagaios ];
+const boasvindas = () => {
+    Cartas1 = Number(prompt("Quantas cartas você quer?"));
 
-  const shuffledArray = duplicado.sort(() => Math.random() - 0.5);
-
-
-  shuffledArray.forEach((character) => {
-    const card = createCard(character);
-    grid.appendChild(card);
-  });
+    while (validacaojogo()){
+        alert("Você digitou um valor inválido, tente novamente");
+        boasvindas();
+    }
+    criarcartas();
 }
 
-const startTimer = () => {
-
-  this.loop = setInterval(() => {
-    const currentTime = +timer.innerHTML;
-    timer.innerHTML = currentTime + 1;
-  }, 1000);
-
-}
-
-window.onload = () => {
-  startTimer();
-  loadGame();
-}
+boasvindas();

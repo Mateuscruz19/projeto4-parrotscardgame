@@ -1,109 +1,126 @@
 body{
-  background-color: #EEF9BF;
-}
-
-.conteiner{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
     background-color: #EEF9BF;
-    align-items: center;
-    justify-content: center;  
-    margin: 0;
     
   }
-
-  
 
   div{
     box-sizing: border-box;
 }
 
   .titulo{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     font-size: 56px;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
     color: #75B79E;
-    margin-bottom: 5px;
-    margin-top: 40px;
-  }
-
-  .timer{
-    font-family: 'Roboto', sans-serif;
-    font-weight: 700;
-  }
-
-  .titulo2{
-    font-family: 'Roboto', sans-serif;
-    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
     margin-bottom: 15px;
-    
   }
-  
-  .grid {
+
+  .conteiner-cabecalho{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;  
+    margin: 0;
+
+  }
+
+  .conteiner-timer{
+    background-color: black;
+    width: 80px;
+    height:20px;
+    color: white;
+    right: 0;
+    font-family: 'Roboto', sans-serif;
+    float: right;
+  }
+
+.conteiner-cartas{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 15px;
     width: 100%;
      max-width: 800px;
     margin: 0 auto;
-  }
+}
 
-  @media (max-width: 645px) {
-    .grid{
-        width: 100vw;
-    }
-    .titulo{
-        font-size: 36px;
-    }
+
+.conteiner-cartas li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 17px;
+    margin-right: 17px;
+    margin-bottom: 34px;
+}
+
+.verso img{
+    width:100px;
+}
+
+.frente img{
+    width:100px;
 }
   
-  .card {
-   width: 117px;
-   height: 146px;
-   border-radius: 5px;
-  position: relative;
-  transition: all 400ms ease;
-  transform-style: preserve-3d;
-  background-color: #ccc;
-  }
-  
-  .face {
+img{
+    position: absolute;
+    width: 90%;
+    height: auto;
+}
+
+@media (max-width: 750px) {
+    .titulo{
+      font-size: 36px;
+    }
+    .conteiner-cartas{
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        grid-template-columns: repeat(2, 2fr);
+        gap: 15px;
+        margin: 0 auto;
+    }
+}
+
+.carta{
     width: 117px;
     height: 146px;
-    position: absolute;
-    transition: all 400ms ease;
-  }
-  
-  .front {
-    background-color: #A7E9AF;
+    border-radius: 5px;
+   position: relative;
+   transition: all 400ms ease;
+   transform-style: preserve-3d;
+}
+.face{
     width: 100%;
     height: 100%;
-    position: absolute;
-    background-size: cover;
-    background-position: center;
-    border-radius: 5px;
-    transition: all 400ms ease;
-  }
-  
-  .back {
-    background-image: url('../images/Loro.png');
+    transform-style: preserve-3d;
     backface-visibility: hidden;
-    background-color: #99CEA8;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-  
-  .virada {
+    transition: all .5s;
+    background-color: #A7E9AF;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+
+
+.costas {
     transform: rotateY(180deg);
+    background-image: url(./cartas/papagaios1.gif);
   }
-  
-  .acertou {
-    filter: saturate(0);
-    opacity: 0.5;
+
+
+.clicado .costas{
+    transform: rotateY(0deg);
   }
-  
+
+.clicado .frente{
+    transform: rotateY(-180deg);
+  }
